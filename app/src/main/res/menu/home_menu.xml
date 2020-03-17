@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/price"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:title="Price"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/home"
+        android:title="Головна"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/listviewitem"
+        android:title="Список"
+        app:showAsAction="never" />
+
+
+    <item android:id="@+id/listviewsimpleitem"
+        android:title="Простий список"
+        app:showAsAction="never" />
+
+
+    <item android:id="@+id/edit"
+        android:title="Правка"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/edit_copy"
+                android:title="Копіювати"/>
+            <item android:id="@+id/edit_past"
+                android:title="Вставити"/>
+        </menu>
+
+    </item>
+</menu>
