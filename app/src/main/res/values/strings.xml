@@ -8,5 +8,7 @@
     <string name="button_next">Далі</string>
     <string name="button_cancel">Скасувати</string>
     <string name="hint_telephone">Телефон</string>
+    <string name="shr_product_title">Назва</string>
+    <string name="shr_product_description">Опис</string>
 
 </resources>
