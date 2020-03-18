@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Begin</string>
+    <string name="app_name">Холодильник</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_username">Телефон</string>
+    <string name="hint_password">Пароль</string>
+    <string name="button_next">Далі</string>
+    <string name="button_cancel">Скасувати</string>
+    <string name="hint_telephone">Телефон</string>
+
 </resources>
