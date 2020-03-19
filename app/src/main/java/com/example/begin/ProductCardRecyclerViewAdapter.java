@@ -19,7 +19,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     ProductCardRecyclerViewAdapter(List<ProductEntry> productList) {
         this.productList = productList;
-        //imageRequester = ImageRequester.getInstance();
+        imageRequester = ImageRequester.getInstance();
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             ProductEntry product = productList.get(position);
             holder.productTitle.setText(product.title);
             holder.productPrice.setText(product.price);
-            //imageRequester.setImageFromUrl(holder.productImage, product.url);
+            imageRequester.setImageFromUrl(holder.productImage, product.url);
         }
     }
 
