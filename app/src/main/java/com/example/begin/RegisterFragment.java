@@ -15,6 +15,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class RegisterFragment extends Fragment {
 
@@ -37,8 +40,14 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
+
         final TextInputLayout passwordTextInput = view.findViewById(R.id.password_text_input);
         final TextInputEditText passwordEditText = view.findViewById(R.id.password_edit_text);
+
+        final TextInputLayout emailTextInput = view.findViewById(R.id.email_text_input);
+        final TextInputEditText emailEditText = view.findViewById(R.id.email_edit_text);
+
+
         MaterialButton nextButton = view.findViewById(R.id.next_button);
 
         // Set an error if the password is less than 8 characters.
@@ -49,8 +58,17 @@ public class RegisterFragment extends Fragment {
                     passwordTextInput.setError("Пароль має бути мін 8 символів");
                 } else {
                     passwordTextInput.setError(null); // Clear the error
-                    ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
+                    //((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
                 }
+
+                if (!isEmailValid(emailEditText.getText())) {
+                    emailTextInput.setError("Невірно вказали пошту");
+                } else {
+                    emailTextInput.setError(null); // Clear the error
+                    //((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
+                }
+
+
             }
         });
 
@@ -62,13 +80,39 @@ public class RegisterFragment extends Fragment {
                     passwordTextInput.setError(null); //Clear the error
                     //return true;
                 }
+                else {
+                    passwordTextInput.setError("Пароль має бути мін 8 символів");
+                }
+                return false;
+            }
+        });
+
+        // Clear the error once more than 8 characters are typed.
+        emailEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (isEmailValid(emailEditText.getText())) {
+                    emailTextInput.setError(null); //Clear the error
+                    //return true;
+                }
+                else {
+                    emailTextInput.setError("Невірно вказали пошту");
+                }
                 return false;
             }
         });
         return view;
     }
+
     private boolean isPasswordValid(@Nullable Editable text) {
         return text != null && text.length() >= 8;
+    }
+
+    private boolean isEmailValid(@Nullable Editable text) {
+        final Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(text);
+        return matcher.find();
     }
 
 }

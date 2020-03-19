@@ -27,7 +27,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/telephone_text_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/hint_telephone">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -41,7 +41,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_text_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Пошта">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -55,7 +55,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name_text_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Ім'я">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,22 +69,23 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_text_input"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="0dp"
+            android:layout_height="match_parent"
+            app:endIconMode="password_toggle"
             android:hint="@string/hint_password"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confitmpassword_text_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            app:endIconMode="password_toggle"
             android:hint="Підтвердіть пароль"
             app:errorEnabled="true">
 
