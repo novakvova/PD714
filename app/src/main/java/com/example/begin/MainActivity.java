@@ -35,31 +35,35 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
 
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.home_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        Intent intent;
-//        switch (item.getItemId())
-//        {
-//            case R.id.home:
-//                intent = new Intent(this, MainActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.register:
-//                intent = new Intent(this, RegisterActivity.class);
-//                startActivity(intent);
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//
-//        }
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId())
+        {
+            case R.id.home:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.register:
+                intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.login:
+                this.navigateTo(new LoginFragment(), false); // Navigate to the next Fragment
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public void navigateTo(Fragment fragment, boolean addToBackstack) {

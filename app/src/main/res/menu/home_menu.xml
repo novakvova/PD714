@@ -10,25 +10,7 @@
         android:title="Реєстрація"
         app:showAsAction="never" />
 
-    <item android:id="@+id/listviewitem"
-        android:title="Список"
+    <item android:id="@+id/login"
+        android:title="Логін"
         app:showAsAction="never" />
-
-
-    <item android:id="@+id/listviewsimpleitem"
-        android:title="Простий список"
-        app:showAsAction="never" />
-
-
-    <item android:id="@+id/edit"
-        android:title="Правка"
-        app:showAsAction="never">
-        <menu>
-            <item android:id="@+id/edit_copy"
-                android:title="Копіювати"/>
-            <item android:id="@+id/edit_past"
-                android:title="Вставити"/>
-        </menu>
-
-    </item>
 </menu>
