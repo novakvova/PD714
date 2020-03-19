@@ -44,12 +44,12 @@ public class RegisterFragment extends Fragment {
         final TextInputLayout passwordTextInput = view.findViewById(R.id.password_text_input);
         final TextInputEditText passwordEditText = view.findViewById(R.id.password_edit_text);
 
-        final TextInputEditText telephoneTextInput = view.findViewById(R.id.telephone_text_input);
-        final TextInputEditText telephoneEditText = view.findViewById(R.id.telephone_edit_text);
-
-
         final TextInputLayout emailTextInput = view.findViewById(R.id.email_text_input);
         final TextInputEditText emailEditText = view.findViewById(R.id.email_edit_text);
+
+//        final TextInputEditText telephoneTextInput = view.findViewById(R.id.telephone_text_input);
+//        final TextInputEditText telephoneEditText = view.findViewById(R.id.telephone_edit_text);
+
 
 
         MaterialButton nextButton = view.findViewById(R.id.next_button);
@@ -64,6 +64,7 @@ public class RegisterFragment extends Fragment {
                     isvalid=false;
                 } else {
                     passwordTextInput.setError(null); // Clear the error
+                    //((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
                 }
 
                 if (!isEmailValid(emailEditText.getText())) {
@@ -71,21 +72,19 @@ public class RegisterFragment extends Fragment {
                     isvalid=false;
                 } else {
                     emailTextInput.setError(null); // Clear the error
+                    //((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
                 }
 
-                if(!isTelephoneValid(telephoneEditText.getText())){
-                    telephoneTextInput.setError("Невірно вказали телефон");
-                    isvalid=false;
-                } else {
-                    telephoneTextInput.setError(null); // Clear the error
-                }
-
-
+//                if(!isTelephoneValid(telephoneEditText.getText())){
+//                    telephoneTextInput.setError("Невірно вказали телефон");
+//                    isvalid=false;
+//                } else {
+//                    telephoneTextInput.setError(null); // Clear the error
+//                }
 
                 if(isvalid){
                     ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
                 }
-
 
             }
         });
@@ -139,7 +138,5 @@ public class RegisterFragment extends Fragment {
         Matcher matcher = VALID_TELEPHONE_REGEX .matcher(text);
         return matcher.find();
     }
-
-
 
 }
