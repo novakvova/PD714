@@ -1,4 +1,4 @@
-package com.example.begin;
+package com.example.begin.network;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.example.begin.application.BeginApplication;
 
 /**
  * Class that handles image requests using Volley.
@@ -21,7 +22,7 @@ public class ImageRequester {
     private final int maxByteSize;
 
     private ImageRequester() {
-        context = ShrineApplication.getAppContext();
+        context = BeginApplication.getAppContext();
         this.requestQueue = Volley.newRequestQueue(context);
         this.requestQueue.start();
         this.maxByteSize = calculateMaxByteSize();

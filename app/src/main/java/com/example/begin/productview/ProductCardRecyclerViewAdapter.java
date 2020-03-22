@@ -1,4 +1,4 @@
-package com.example.begin;
+package com.example.begin.productview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.begin.R;
+import com.example.begin.network.ImageRequester;
+import com.example.begin.network.ProductEntry;
 
 import java.util.List;
 

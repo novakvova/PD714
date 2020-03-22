@@ -1,15 +1,15 @@
-package com.example.begin;
+package com.example.begin.application;
 
 import android.app.Application;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-public class ShrineApplication extends Application {
-    private static ShrineApplication instance;
+public class BeginApplication extends Application {
+    private static BeginApplication instance;
     private static Context appContext;
 
-    public static ShrineApplication getInstance() {
+    public static BeginApplication getInstance() {
         return instance;
     }
 

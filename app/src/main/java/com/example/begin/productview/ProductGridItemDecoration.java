@@ -1,4 +1,4 @@
-package com.example.begin;
+package com.example.begin.productview;
 
 import android.graphics.Rect;
 import android.view.View;

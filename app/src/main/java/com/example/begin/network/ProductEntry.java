@@ -1,9 +1,10 @@
-package com.example.begin;
+package com.example.begin.network;
 
 import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.begin.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

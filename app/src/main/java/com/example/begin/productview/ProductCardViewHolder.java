@@ -1,4 +1,4 @@
-package com.example.begin;
+package com.example.begin.productview;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.begin.R;
 
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 

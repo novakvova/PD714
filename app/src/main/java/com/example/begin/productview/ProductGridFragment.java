@@ -1,4 +1,4 @@
-package com.example.begin;
+package com.example.begin.productview;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import com.example.begin.R;
+import com.example.begin.network.ProductEntry;
 
 
 /**
