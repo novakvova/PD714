@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,10 +41,9 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
-        //List<ProductEntry> list = ProductEntry.initProductEntryList(getResources());
-        //Log.println(1,"size", "Hello");
-       ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(
-               ProductEntry.initProductEntryList(getResources()));
+        List<ProductEntry> list = ProductEntry.initProductEntryList(getResources());
+         ProductEntry.initProductEntryList(getResources());
+       ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(list);
 
         recyclerView.setAdapter(adapter);
 
