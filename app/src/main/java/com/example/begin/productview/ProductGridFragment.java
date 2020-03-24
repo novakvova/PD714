@@ -17,6 +17,7 @@ import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
 import com.example.begin.retrofitProduct.ProductDTO;
 import com.example.begin.retrofitProduct.ProductDTOService;
+import com.example.begin.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,16 +52,16 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
-        List<ProductEntry> list = ProductEntry.initProductEntryList(getResources());
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(list);
-
-        recyclerView.setAdapter(adapter);
+//        List<ProductEntry> list = ProductEntry.initProductEntryList(getResources());
+//        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(list);
+//
+//        recyclerView.setAdapter(adapter);
 
         int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
         recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
 
-
+        CommonUtils.showLoading(getActivity());
         ProductDTOService.getInstance()
                 .getJSONApi()
                 .getAllProducts()
@@ -80,6 +81,7 @@ public class ProductGridFragment extends Fragment {
                         ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
 
                         recyclerView.swapAdapter(newAdapter, false);
+                        CommonUtils.hideLoading();
                     }
 
                     @Override
