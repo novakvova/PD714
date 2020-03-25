@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.begin.userview.UserGridFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity implements NavigationHost  {
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
 
             case R.id.login:
                 this.navigateTo(new LoginFragment(), false); // Navigate to the next Fragment
+                return true;
+            case R.id.users:
+                this.navigateTo(new UserGridFragment(), false); // Navigate to the next Fragment
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

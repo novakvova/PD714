@@ -4,7 +4,7 @@
     "first_name": "Шарпей",
     "last_name": "Звичайний",
     "age": "42",
-    "country": "Unraine",
+    "country": "Uknraine",
     "city": "Dubno"
   },
   {
@@ -12,7 +12,39 @@
     "first_name": "Бигль",
     "last_name": "Не звичайний",
     "age": "38",
-    "country": "Unraine",
+    "country": "Uknraine",
+    "city": "Рівне"
+  },
+  {
+    "image": "https://lapku.ru/wp-content/uploads/2019/12/Sushhestvuyushhie-porody-sobak-so-skladkami.jpg",
+    "first_name": "Шарпей",
+    "last_name": "Звичайний",
+    "age": "42",
+    "country": "Uknraine",
+    "city": "Dubno"
+  },
+  {
+    "image": "https://wikipets.ru/wp-content/uploads/2018/02/Gladkosherstnyie-ohotnichi-porodyi-sobak-Bigl-678x381.jpg",
+    "first_name": "Бигль",
+    "last_name": "Не звичайний",
+    "age": "38",
+    "country": "Uknraine",
+    "city": "Рівне"
+  },
+  {
+    "image": "https://lapku.ru/wp-content/uploads/2019/12/Sushhestvuyushhie-porody-sobak-so-skladkami.jpg",
+    "first_name": "Шарпей",
+    "last_name": "Звичайний",
+    "age": "42",
+    "country": "Uknraine",
+    "city": "Dubno"
+  },
+  {
+    "image": "https://wikipets.ru/wp-content/uploads/2018/02/Gladkosherstnyie-ohotnichi-porodyi-sobak-Bigl-678x381.jpg",
+    "first_name": "Бигль",
+    "last_name": "Не звичайний",
+    "age": "38",
+    "country": "Uknraine",
     "city": "Рівне"
   }
 ]

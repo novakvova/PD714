@@ -14,8 +14,8 @@
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/user_image"
-            android:layout_width="150dp"
-            android:layout_height="@dimen/shr_product_card_image_height"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
             android:background="?attr/colorPrimaryDark"
             android:scaleType="centerCrop" />
 
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -35,7 +35,8 @@
                     android:text="Прізвище"
                     android:layout_marginEnd="6dp"
                     android:layout_marginRight="6dp"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:textSize="17dp"
+                     />
                 <TextView
                     android:id="@+id/user_firstname"
                     android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
                     android:layout_toEndOf="@id/user_lastname"
                     android:layout_toRightOf="@id/user_lastname"
                     android:text="Ім'я"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:textSize="17dp"
+                     />
 
             </RelativeLayout>
 
