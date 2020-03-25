@@ -86,7 +86,7 @@ public class ProductGridFragment extends Fragment {
 
                     @Override
                     public void onFailure(@NonNull Call<List<ProductDTO>> call, @NonNull Throwable t) {
-
+                        CommonUtils.hideLoading();
                         t.printStackTrace();
                     }
                 });
