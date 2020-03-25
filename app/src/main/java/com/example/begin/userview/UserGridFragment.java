@@ -41,8 +41,8 @@ public class UserGridFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
-        int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
+        int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_user_grid_spacing);
+        int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_user_grid_spacing_small);
         recyclerView.addItemDecoration(new UserGridItemDecoration(largePadding, smallPadding));
         return view;
     }
