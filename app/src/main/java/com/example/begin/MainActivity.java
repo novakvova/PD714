@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +29,12 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+//        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEUExSSTVUTEVNMjFTQzNER0xHUjBJOFpYIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hcHBsaWNhdGlvbnMvNWpvQVVKdFZONHNkT3dUVVJEc0VDNSIsImlhdCI6MTQwNjY1OTkxMCwiZXhwIjoxNDA2NjYzNTEwLCJzY29wZSI6IiJ9.ypDMDMMCRCtDhWPMMc9l_Q-O-rj5LATalHYa3droYkY";
+//
+//        SaveJWTToken(token);
+        String token = getToken();
+        //if(token!=null)
+            Log.i("Login",token);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -34,6 +42,30 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
                     .commit();
         }
 
+
+    }
+
+    private void SaveJWTToken(String token) {
+        SharedPreferences prefs;
+        SharedPreferences.Editor edit;
+        prefs=this.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        edit=prefs.edit();
+        try {
+
+            edit.putString("token",token);
+            Log.i("Login",token);
+            edit.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private String getToken() {
+        SharedPreferences prefs=this.getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
+        String token = prefs.getString("token","");
+        return token;
     }
 
     @Override
