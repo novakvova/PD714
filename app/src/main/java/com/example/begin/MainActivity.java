@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
                     .add(R.id.container, new LoginFragment())
                     .commit();
         }
-
-
     }
 
     private void SaveJWTToken(String token) {
