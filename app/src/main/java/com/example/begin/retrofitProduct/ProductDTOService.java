@@ -1,5 +1,7 @@
 package com.example.begin.retrofitProduct;
 
+import com.example.begin.utils.network.ConnectivityInterceptor;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -31,6 +33,7 @@ public class ProductDTOService {
         };
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .addInterceptor(new ConnectivityInterceptor())
                 .addInterceptor(interJWT)
                 .addInterceptor(interceptor);
 
