@@ -8,16 +8,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.begin.ConnectionInternetError;
+import com.example.begin.NavigationHost;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
 import com.example.begin.retrofitProduct.ProductDTO;
 import com.example.begin.retrofitProduct.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
+import com.example.begin.utils.network.NoConnectivityException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,7 @@ import retrofit2.Response;
 public class ProductGridFragment extends Fragment {
 
     private static final String TAG = ProductGridFragment.class.getSimpleName();
+
     private RecyclerView recyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class ProductGridFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
+
         // Set up the RecyclerView
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -79,7 +86,6 @@ public class ProductGridFragment extends Fragment {
                             newlist.add(pe);
                         }
                         ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
-
                         recyclerView.swapAdapter(newAdapter, false);
                         CommonUtils.hideLoading();
                     }
@@ -87,6 +93,11 @@ public class ProductGridFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Call<List<ProductDTO>> call, @NonNull Throwable t) {
                         CommonUtils.hideLoading();
+                        Log.e("ERROR","*************ERORR request***********");
+                        if(t instanceof NoConnectivityException) {
+                            ((ConnectionInternetError) getActivity()).navigateErrorPage(new ProductGridFragment(), true); // Navigate to the next Fragment
+                            //Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+                        }
                         t.printStackTrace();
                     }
                 });

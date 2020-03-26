@@ -22,8 +22,9 @@ import android.widget.Toast;
 import com.example.begin.userview.UserGridFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class MainActivity extends AppCompatActivity implements NavigationHost  {
+public class MainActivity extends AppCompatActivity implements NavigationHost, ConnectionInternetError  {
 
+    private Fragment callbackfragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,4 +116,14 @@ public class MainActivity extends AppCompatActivity implements NavigationHost  {
     }
 
 
+    @Override
+    public void navigateErrorPage(Fragment callbackfragment, boolean addToBackstack) {
+        this.callbackfragment=callbackfragment;
+        navigateTo(new ConnectonInternetErrorFragment(), addToBackstack);
+    }
+
+    @Override
+    public void refreshCurrentErrorPage() {
+        navigateTo(this.callbackfragment, true);
+    }
 }
