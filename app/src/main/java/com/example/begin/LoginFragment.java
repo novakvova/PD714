@@ -12,14 +12,19 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.begin.account.AccountService;
 import com.example.begin.account.LoginDTO;
+import com.example.begin.account.LoginDTOBadRequest;
 import com.example.begin.account.TokenDTO;
-import com.example.begin.productview.ProductGridFragment;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +51,7 @@ public class LoginFragment extends Fragment {
         final TextInputLayout passwordTextInput = view.findViewById(R.id.password_text_input);
         final TextInputEditText passwordEditText = view.findViewById(R.id.password_edit_text);
         final TextInputEditText phoneEditText = view.findViewById(R.id.telephone_edit_text);
+        final TextView errorMessage = view.findViewById(R.id.error_message);
         MaterialButton nextButton = view.findViewById(R.id.next_button);
 
         // Set an error if the password is less than 8 characters.
@@ -60,6 +66,7 @@ public class LoginFragment extends Fragment {
                     String password = passwordEditText.getText().toString();
 
                     LoginDTO loginDTO=new LoginDTO(login, password);
+                    errorMessage.setText("");
                     AccountService.getInstance()
                             .getJSONApi()
                             .loginRequest(loginDTO)
@@ -74,6 +81,16 @@ public class LoginFragment extends Fragment {
                                     }
                                     else {
                                         Log.e(TAG,"_______________________"+response.errorBody().charStream());
+
+                                        try {
+                                            String json = response.errorBody().string();
+                                            Gson gson = new Gson();
+                                            LoginDTOBadRequest resultBad = gson.fromJson(json, LoginDTOBadRequest.class);
+                                            //Log.d(TAG,"++++++++++++++++++++++++++++++++"+response.errorBody().string());
+                                            errorMessage.setText(resultBad.getInvalid());
+                                        } catch (Exception e) {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
                                     }
 
                                     //Log.d(TAG,tokenDTO.toString());
