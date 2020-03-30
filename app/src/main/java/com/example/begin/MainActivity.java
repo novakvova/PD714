@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
 
         transaction.commit();
     }
-
 
     @Override
     public void navigateErrorPage(Fragment callbackfragment, boolean addToBackstack) {
