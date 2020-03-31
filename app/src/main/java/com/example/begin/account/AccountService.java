@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccountService {
     private static AccountService mInstance;
-    private static final String BASE_URL = "http://10.0.2.2/api/account/";//"https://autobazar.azurewebsites.net/api/account/";
+    private static final String BASE_URL = "https://apppeter.azurewebsites.net/api/account/";//"http://10.0.2.2/api/account/";//"https://autobazar.azurewebsites.net/api/account/";
     private Retrofit mRetrofit;
 
     private AccountService() {

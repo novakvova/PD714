@@ -1,5 +1,6 @@
 package com.example.begin.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 

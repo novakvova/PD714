@@ -19,23 +19,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.begin.account.JwtServiceHolder;
+import com.example.begin.application.BeginApplication;
 import com.example.begin.userview.UserGridFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class MainActivity extends AppCompatActivity implements NavigationHost, ConnectionInternetError  {
+public class MainActivity extends AppCompatActivity implements NavigationHost, ConnectionInternetError, JwtServiceHolder {
 
     private Fragment callbackfragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEUExSSTVUTEVNMjFTQzNER0xHUjBJOFpYIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hcHBsaWNhdGlvbnMvNWpvQVVKdFZONHNkT3dUVVJEc0VDNSIsImlhdCI6MTQwNjY1OTkxMCwiZXhwIjoxNDA2NjYzNTEwLCJzY29wZSI6IiJ9.ypDMDMMCRCtDhWPMMc9l_Q-O-rj5LATalHYa3droYkY";
-//
-//        SaveJWTToken(token);
-        String token = getToken();
-        //if(token!=null)
-            Log.i("Login",token);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -44,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
         }
     }
 
-    private void SaveJWTToken(String token) {
+    public void SaveJWTToken(String token) {
         SharedPreferences prefs;
         SharedPreferences.Editor edit;
-        prefs=this.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        prefs=this.getSharedPreferences("jwtStore", Context.MODE_PRIVATE);
         edit=prefs.edit();
         try {
 
@@ -61,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
         }
     }
 
-    private String getToken() {
-        SharedPreferences prefs=this.getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
+    public String getToken() {
+        SharedPreferences prefs=this.getSharedPreferences("jwtStore",Context.MODE_PRIVATE);
         String token = prefs.getString("token","");
         return token;
     }

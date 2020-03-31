@@ -16,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.begin.account.AccountService;
+import com.example.begin.account.JwtServiceHolder;
 import com.example.begin.account.LoginDTO;
 import com.example.begin.account.LoginDTOBadRequest;
 import com.example.begin.account.TokenDTO;
 
+import com.example.begin.productview.ProductGridFragment;
+import com.example.begin.utils.CommonUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -67,6 +70,7 @@ public class LoginFragment extends Fragment {
 
                     LoginDTO loginDTO=new LoginDTO(login, password);
                     errorMessage.setText("");
+                    CommonUtils.showLoading(getActivity());
                     AccountService.getInstance()
                             .getJSONApi()
                             .loginRequest(loginDTO)
@@ -75,12 +79,12 @@ public class LoginFragment extends Fragment {
                                 public void onResponse(@NonNull Call<TokenDTO> call, @NonNull Response<TokenDTO> response) {
                                     if(response.isSuccessful()) {
                                         TokenDTO tokenDTO = response.body();
-                                        //((JwtServiceHolder) getActivity()).SaveJWTToken(tokenDTO.getToken()); // Navigate to the register Fragment
-                                        //((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the products Fragment
+                                        ((JwtServiceHolder) getActivity()).SaveJWTToken(tokenDTO.getToken()); // Navigate to the register Fragment
+                                        ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the products Fragment
                                         Log.e(TAG,"*************GOOD Request***********"+ tokenDTO.getToken());
                                     }
                                     else {
-                                        Log.e(TAG,"_______________________"+response.errorBody().charStream());
+                                        //Log.e(TAG,"_______________________"+response.errorBody().charStream());
 
                                         try {
                                             String json = response.errorBody().string();
@@ -94,12 +98,12 @@ public class LoginFragment extends Fragment {
                                     }
 
                                     //Log.d(TAG,tokenDTO.toString());
-                                    //CommonUtils.hideLoading();
+                                    CommonUtils.hideLoading();
                                 }
 
                                 @Override
                                 public void onFailure(@NonNull Call<TokenDTO> call, @NonNull Throwable t) {
-                                    //CommonUtils.hideLoading();
+                                    CommonUtils.hideLoading();
                                     Log.e("ERROR","*************ERORR request***********");
                                     t.printStackTrace();
                                 }
