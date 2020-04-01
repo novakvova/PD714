@@ -8,21 +8,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.begin.ConnectionInternetError;
 import com.example.begin.NavigationHost;
-import com.example.begin.ProductCreateFragment;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
-import com.example.begin.retrofitProduct.ProductDTO;
-import com.example.begin.retrofitProduct.ProductDTOService;
+import com.example.begin.productview.netwok.ProductDTO;
+import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
 import com.example.begin.utils.network.NoConnectivityException;
 

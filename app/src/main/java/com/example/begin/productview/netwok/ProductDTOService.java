@@ -1,8 +1,4 @@
-package com.example.begin.retrofitProduct;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+package com.example.begin.productview.netwok;
 
 import com.example.begin.account.JwtServiceHolder;
 import com.example.begin.application.BeginApplication;

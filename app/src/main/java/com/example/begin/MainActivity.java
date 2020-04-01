@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.begin.productview.ProductGridFragment;
 import com.example.begin.userview.UserGridFragment;
 
 public class MainActivity extends BaseActivity {
@@ -17,10 +18,19 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container, new LoginFragment())
-                    .commit();
+            String token = getToken();
+            if (token!=null||token.equals("")){
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.container, new ProductGridFragment())
+                        .commit();
+            }
+            else {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.container, new LoginFragment())
+                        .commit();
+            }
         }
     }
     @Override
