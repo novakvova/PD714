@@ -10,6 +10,14 @@ public class BeginApplication extends Application {
     private static BeginApplication instance;
     private static Context appContext;
 
+    private Activity mCurrentActivity = null;
+    public Activity getCurrentActivity(){
+        return mCurrentActivity;
+    }
+    public void setCurrentActivity(Activity mCurrentActivity){
+        this.mCurrentActivity = mCurrentActivity;
+    }
+
     public static BeginApplication getInstance() {
         return instance;
     }

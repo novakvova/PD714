@@ -13,10 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.begin.ConnectionInternetError;
 import com.example.begin.NavigationHost;
+import com.example.begin.ProductCreateFragment;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
 import com.example.begin.retrofitProduct.ProductDTO;
@@ -53,6 +55,15 @@ public class ProductGridFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
+        Button gridBtn = view.findViewById(R.id.add_button);
+
+        // Set an error if the password is less than 8 characters.
+        gridBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+            }
+        });
 
         // Set up the RecyclerView
         recyclerView = view.findViewById(R.id.recycler_view);

@@ -1,32 +1,17 @@
 package com.example.begin;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.begin.account.JwtServiceHolder;
-import com.example.begin.application.BeginApplication;
 import com.example.begin.userview.UserGridFragment;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class MainActivity extends AppCompatActivity implements NavigationHost, ConnectionInternetError, JwtServiceHolder {
+public class MainActivity extends BaseActivity {
 
-    private Fragment callbackfragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,37 +23,12 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
                     .commit();
         }
     }
-
-    public void SaveJWTToken(String token) {
-        SharedPreferences prefs;
-        SharedPreferences.Editor edit;
-        prefs=this.getSharedPreferences("jwtStore", Context.MODE_PRIVATE);
-        edit=prefs.edit();
-        try {
-
-            edit.putString("token",token);
-            Log.i("Login",token);
-            edit.commit();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public String getToken() {
-        SharedPreferences prefs=this.getSharedPreferences("jwtStore",Context.MODE_PRIVATE);
-        String token = prefs.getString("token","");
-        return token;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -83,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
                 //startActivity(intent);
                 this.navigateTo(new RegisterFragment(), false);
                 return true;
-
             case R.id.login:
                 this.navigateTo(new LoginFragment(), false); // Navigate to the next Fragment
                 return true;
@@ -93,30 +52,5 @@ public class MainActivity extends AppCompatActivity implements NavigationHost, C
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void navigateTo(Fragment fragment, boolean addToBackstack) {
-        FragmentTransaction transaction =
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, fragment);
-
-        if (addToBackstack) {
-            transaction.addToBackStack(null);
-        }
-
-        transaction.commit();
-    }
-
-    @Override
-    public void navigateErrorPage(Fragment callbackfragment, boolean addToBackstack) {
-        this.callbackfragment=callbackfragment;
-        navigateTo(new ConnectonInternetErrorFragment(), addToBackstack);
-    }
-
-    @Override
-    public void refreshCurrentErrorPage() {
-        navigateTo(this.callbackfragment, true);
     }
 }

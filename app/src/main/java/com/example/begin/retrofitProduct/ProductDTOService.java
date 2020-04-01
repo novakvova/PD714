@@ -27,12 +27,12 @@ public class ProductDTOService {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        SharedPreferences prefs=BeginApplication.getInstance().getSharedPreferences("jwtStore", Context.MODE_PRIVATE);
-        final String token = "Bearer "+ prefs.getString("token","");
-
         Interceptor interJWT = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+                BeginApplication context = (BeginApplication)BeginApplication.getAppContext();
+                JwtServiceHolder jwtService = (JwtServiceHolder)context.getCurrentActivity();
+                String token = "Bearer " + jwtService.getToken();
                 Request originalRequest = chain.request();
                 Request newRequest = originalRequest.newBuilder()
                         .header("Authorization", token)
