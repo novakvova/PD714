@@ -11,7 +11,8 @@ import com.example.begin.application.BeginApplication;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationHost, ConnectionInternetError, JwtServiceHolder {
 
-    private Fragment callbackfragment;
+    protected Fragment callbackFragment;
+    protected Fragment currentFragment;
 
     public BaseActivity() {
         BeginApplication myApp=(BeginApplication) BeginApplication.getAppContext();
@@ -19,10 +20,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
     @Override
     public void navigateTo(Fragment fragment, boolean addToBackstack) {
+        this.currentFragment = fragment;
         FragmentTransaction transaction =
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.container, fragment);
+                        .replace(R.id.container, this.currentFragment);
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
@@ -68,14 +70,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     @Override
-    public void navigateErrorPage(Fragment callbackfragment, boolean addToBackstack) {
-        this.callbackfragment=callbackfragment;
-        navigateTo(new ConnectonInternetErrorFragment(), addToBackstack);
+    public void navigateErrorPage() {
+        this.callbackFragment=currentFragment;
+        navigateTo(new ConnectionInternetErrorFragment(), true);
     }
 
     @Override
     public void refreshCurrentErrorPage() {
-        navigateTo(this.callbackfragment, true);
+        navigateTo(this.callbackFragment, true);
     }
 
 }

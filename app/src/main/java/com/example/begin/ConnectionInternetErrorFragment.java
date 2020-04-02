@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.example.begin.productview.ProductGridFragment;
 
 
-public class ConnectonInternetErrorFragment extends Fragment {
+public class ConnectionInternetErrorFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

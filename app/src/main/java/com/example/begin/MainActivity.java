@@ -1,6 +1,7 @@
 package com.example.begin;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,16 +20,19 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             String token = getToken();
-            if (token!=null||token.equals("")){
+
+            if (token != null && !token.isEmpty()){
+                this.currentFragment=new ProductGridFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.container, new ProductGridFragment())
+                        .add(R.id.container, this.currentFragment)
                         .commit();
             }
             else {
+                this.currentFragment=new LoginFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.container, new LoginFragment())
+                        .add(R.id.container, this.currentFragment)
                         .commit();
             }
         }
@@ -53,12 +57,20 @@ public class MainActivity extends BaseActivity {
                 //startActivity(intent);
                 this.navigateTo(new RegisterFragment(), false);
                 return true;
+
             case R.id.login:
                 this.navigateTo(new LoginFragment(), false); // Navigate to the next Fragment
                 return true;
+
             case R.id.users:
-                this.navigateTo(new UserGridFragment(), false); // Navigate to the next Fragment
+                this.navigateTo(new UserGridFragment(), true); // Navigate to the next Fragment
                 return true;
+
+            case R.id.logout:
+                this.removeToken();
+                this.navigateTo(new LoginFragment(), false); // Navigate to the next Fragment
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

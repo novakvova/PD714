@@ -14,14 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.begin.ConnectionInternetError;
 import com.example.begin.NavigationHost;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
 import com.example.begin.productview.netwok.ProductDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
-import com.example.begin.utils.network.NoConnectivityException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +83,8 @@ public class ProductGridFragment extends Fragment {
                     public void onResponse(@NonNull Call<List<ProductDTO>> call, @NonNull Response<List<ProductDTO>> response) {
                         List<ProductDTO> list = response.body();
                         //int size = list.size();
-                        String res= list.get(0).toString();
-                        Log.d(TAG, "--------result server-------"+res);
+                       // String res= list.get(0).toString();
+                        //Log.d(TAG, "--------result server-------"+res);
 
                         List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
                         for (ProductDTO item : list) {
@@ -102,10 +100,10 @@ public class ProductGridFragment extends Fragment {
                     public void onFailure(@NonNull Call<List<ProductDTO>> call, @NonNull Throwable t) {
                         CommonUtils.hideLoading();
                         Log.e("ERROR","*************ERORR request***********");
-                        if(t instanceof NoConnectivityException) {
-                            ((ConnectionInternetError) getActivity()).navigateErrorPage(new ProductGridFragment(), true); // Navigate to the next Fragment
-                            //Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                        }
+//                        if(t instanceof NoConnectivityException) {
+//                            ((ConnectionInternetError) getActivity()).navigateErrorPage(new ProductGridFragment(), true); // Navigate to the next Fragment
+//                            //Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+//                        }
                         t.printStackTrace();
                     }
                 });
