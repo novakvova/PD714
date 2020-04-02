@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.begin.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 
 /**
@@ -36,11 +37,15 @@ public class ProductCreateFragment extends Fragment {
 
         Button gridBtn = view.findViewById(R.id.add_button);
 
+        final TextInputEditText titleEditText = view.findViewById(R.id.title_edit_text);
+        final TextInputEditText priceEditText = view.findViewById(R.id.price_edit_text);
         // Set an error if the password is less than 8 characters.
         gridBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+
+
+                //Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
             }
         });
         return view;
