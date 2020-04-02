@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,17 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.begin.R;
+import com.example.begin.productview.netwok.ProductCreateDTO;
+import com.example.begin.productview.netwok.ProductCreateResultDTO;
+import com.example.begin.productview.netwok.ProductDTOService;
 import com.google.android.material.textfield.TextInputEditText;
+import com.example.begin.NavigationHost;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductCreateFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProductCreateFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
@@ -43,9 +47,30 @@ public class ProductCreateFragment extends Fragment {
         gridBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+           String title = titleEditText.getText().toString();
+           String price = priceEditText.getText().toString();
+           Toast.makeText(getContext(), title + price, Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+                ProductDTOService.getInstance()
+                        .getJSONApi()
+                        .createProduct(new ProductCreateDTO(title, price))
+                        .enqueue(new Callback<ProductCreateResultDTO>() {
+                            @Override
+                            public void onResponse(Call<ProductCreateResultDTO> call, Response<ProductCreateResultDTO> response) {
+                            if(response.isSuccessful()){
+                                ProductCreateResultDTO resultDTO = response.body();
+                                ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), true);
+                            }
+                            else{
+                                Log.e("error create", "----------Error----------");
+                            }
+                            }
 
+                            @Override
+                            public void onFailure(Call<ProductCreateResultDTO> call, Throwable t) {
 
-                //Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+                            }
+                        });
+
             }
         });
         return view;

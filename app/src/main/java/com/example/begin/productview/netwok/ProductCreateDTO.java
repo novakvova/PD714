@@ -20,6 +20,11 @@ public class ProductCreateDTO {
         this.title = title;
     }
 
+    public ProductCreateDTO(String title, String price) {
+        this.title = title;
+        this.price = price;
+    }
+
     public String getPrice() {
         return price;
     }
