@@ -12,17 +12,22 @@ public class ProductCreateDTO {
     @Expose
     private String price;
 
+    @SerializedName("imageBase64")
+    @Expose
+    private String imageBase64;
+
+    public ProductCreateDTO(String title, String price, String imageBase64) {
+        this.title = title;
+        this.price = price;
+        this.imageBase64 = imageBase64;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public ProductCreateDTO(String title, String price) {
-        this.title = title;
-        this.price = price;
     }
 
     public String getPrice() {
@@ -33,11 +38,21 @@ public class ProductCreateDTO {
         this.price = price;
     }
 
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+
     @Override
     public String toString() {
-        return "ProductDTO{" +
+        return "ProductCreateDTO{" +
                 "title='" + title + '\'' +
                 ", price='" + price + '\'' +
+                ", imageBase64='" + imageBase64 + '\'' +
                 '}';
     }
 }

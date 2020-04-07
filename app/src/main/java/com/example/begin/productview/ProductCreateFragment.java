@@ -26,7 +26,6 @@ import com.example.begin.utils.FileUtil;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.begin.NavigationHost;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,9 +38,9 @@ import retrofit2.Response;
 public class ProductCreateFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     public static final int PICKFILE_RESULT_CODE = 1;
-    ImageView myImage;
-    private Uri fileUri;
-    private String filePath;
+    ImageView chooseImage;
+    String chooseImageBase64;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,10 +54,10 @@ public class ProductCreateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_create, container, false);
 
-        Button gridBtn = view.findViewById(R.id.add_button);
+        Button btnAddProduct = view.findViewById(R.id.add_button);
         Button btnSelectImage = view.findViewById(R.id.btnSelectImage);
 
-        myImage = (ImageView) view.findViewById(R.id.imgSource);
+        chooseImage = (ImageView) view.findViewById(R.id.chooseImage);
 
         btnSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +66,14 @@ public class ProductCreateFragment extends Fragment {
                 chooseFile.setType( "image/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
-                //Toast.makeText(getContext(), "Hello", Toast.LENGTH_LONG).show();
+
             }
         });
 
         final TextInputEditText titleEditText = view.findViewById(R.id.title_edit_text);
         final TextInputEditText priceEditText = view.findViewById(R.id.price_edit_text);
         // Set an error if the password is less than 8 characters.
-        gridBtn.setOnClickListener(new View.OnClickListener() {
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
            String title = titleEditText.getText().toString();
@@ -82,7 +81,7 @@ public class ProductCreateFragment extends Fragment {
            Toast.makeText(getContext(), title + price, Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
                 ProductDTOService.getInstance()
                         .getJSONApi()
-                        .createProduct(new ProductCreateDTO(title, price))
+                        .createProduct(new ProductCreateDTO(title, price, chooseImageBase64))
                         .enqueue(new Callback<ProductCreateResultDTO>() {
                             @Override
                             public void onResponse(Call<ProductCreateResultDTO> call, Response<ProductCreateResultDTO> response) {
@@ -110,23 +109,14 @@ public class ProductCreateFragment extends Fragment {
         switch (requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == -1) {
-                    fileUri = data.getData();
-                    //filePath = fileUri.getPath();
-                    //String myFilePath=getFilePathFromContentPath(fileUri);
-                    //Toast.makeText(getContext(), myFilePath, Toast.LENGTH_SHORT).show();
+                    Uri fileUri = data.getData();
                     try {
                         File imgFile= FileUtil.from(this.getActivity(),fileUri);
-
-                        imgFile.getPath();
                         byte[] buffer = new byte[(int) imgFile.length() + 100];
                         int length = new FileInputStream(imgFile).read(buffer);
-                        String base64 = Base64.encodeToString(buffer, 0, length,
-                                Base64.DEFAULT);
-
+                        chooseImageBase64 = Base64.encodeToString(buffer, 0, length, Base64.DEFAULT);
                         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        myImage.setImageBitmap(myBitmap);
-
-int p=10;
+                        chooseImage.setImageBitmap(myBitmap);
                     }
                     catch(IOException e)
                     {
