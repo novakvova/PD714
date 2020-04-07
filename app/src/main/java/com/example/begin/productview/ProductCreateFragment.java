@@ -112,9 +112,10 @@ public class ProductCreateFragment extends Fragment {
                     Uri fileUri = data.getData();
                     try {
                         File imgFile= FileUtil.from(this.getActivity(),fileUri);
+
                         byte[] buffer = new byte[(int) imgFile.length() + 100];
                         int length = new FileInputStream(imgFile).read(buffer);
-                        chooseImageBase64 = Base64.encodeToString(buffer, 0, length, Base64.DEFAULT);
+                        chooseImageBase64 = Base64.encodeToString(buffer, 0, length, Base64.NO_WRAP);
                         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                         chooseImage.setImageBitmap(myBitmap);
                     }
@@ -128,21 +129,5 @@ public class ProductCreateFragment extends Fragment {
         }
     }
 
-    String getFilePathFromContentPath(Uri uri) {
-        String filePath = null;
-        if ("content".equals(uri.getScheme())) {
-            Cursor cursor = this.getActivity().getContentResolver().query(uri,
-                    new String[]{android.provider.MediaStore.Images.ImageColumns.DATA},
-                    null,
-                    null,
-                    null);
-            cursor.moveToFirst();
-            filePath = cursor.getString(0);
-            cursor.close();
-        } else {
-            filePath = uri.getPath();
-        }
-        return filePath;
-    }
 
 }

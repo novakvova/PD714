@@ -81,19 +81,22 @@ public class ProductGridFragment extends Fragment {
                 .enqueue(new Callback<List<ProductDTO>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<ProductDTO>> call, @NonNull Response<List<ProductDTO>> response) {
-                        List<ProductDTO> list = response.body();
-                        //int size = list.size();
-                       // String res= list.get(0).toString();
-                        //Log.d(TAG, "--------result server-------"+res);
-
-                        List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
-                        for (ProductDTO item : list) {
-                            ProductEntry pe=new ProductEntry(item.getTitle(),item.getUrl(),item.getUrl(), item.getPrice(),"sdfasd");
-                            newlist.add(pe);
-                        }
-                        ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
-                        recyclerView.swapAdapter(newAdapter, false);
                         CommonUtils.hideLoading();
+                        if(response.isSuccessful()) {
+                            List<ProductDTO> list = response.body();
+                            //int size = list.size();
+                            // String res= list.get(0).toString();
+                            //Log.d(TAG, "--------result server-------"+res);
+
+                            List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
+                            for (ProductDTO item : list) {
+                                ProductEntry pe = new ProductEntry(item.getTitle(), item.getUrl(), item.getUrl(), item.getPrice(), "sdfasd");
+                                newlist.add(pe);
+                            }
+                            ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
+                            recyclerView.swapAdapter(newAdapter, false);
+                        }
+
                     }
 
                     @Override

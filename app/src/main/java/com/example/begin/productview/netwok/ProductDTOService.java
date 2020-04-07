@@ -3,6 +3,8 @@ package com.example.begin.productview.netwok;
 import com.example.begin.network.interceptors.ConnectivityInterceptor;
 import com.example.begin.network.interceptors.JWTInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -10,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductDTOService {
     private static ProductDTOService mInstance;
-    private static final String BASE_URL = "http://10.0.2.2/api/";//"https://apppeter.azurewebsites.net/api/";
+    private static final String BASE_URL = "https://apppeter.azurewebsites.net/api/";//"http://10.0.2.2/api/";//
     private Retrofit mRetrofit;
 
     private ProductDTOService() {
@@ -20,6 +22,8 @@ public class ProductDTOService {
 
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new ConnectivityInterceptor())
                 .addInterceptor(new JWTInterceptor())
                 .addInterceptor(interceptor);
