@@ -16,15 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.begin.R;
+import com.example.begin.account.LoginDTOBadRequest;
 import com.example.begin.productview.netwok.ProductCreateDTO;
 import com.example.begin.productview.netwok.ProductCreateResultDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
+import com.example.begin.utils.CommonUtils;
 import com.example.begin.utils.FileUtil;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.begin.NavigationHost;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -63,7 +67,7 @@ public class ProductCreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                chooseFile.setType( "image/*");
+                chooseFile.setType("image/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
 
@@ -72,31 +76,45 @@ public class ProductCreateFragment extends Fragment {
 
         final TextInputEditText titleEditText = view.findViewById(R.id.title_edit_text);
         final TextInputEditText priceEditText = view.findViewById(R.id.price_edit_text);
+        final TextView errorMessage = view.findViewById(R.id.error_message);
+
         // Set an error if the password is less than 8 characters.
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           String title = titleEditText.getText().toString();
-           String price = priceEditText.getText().toString();
-           Toast.makeText(getContext(), title + price, Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+                String title = titleEditText.getText().toString();
+                String price = priceEditText.getText().toString();
+                //Toast.makeText(getContext(), title + price, Toast.LENGTH_SHORT).show();// ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
+                errorMessage.setText("");
+                CommonUtils.showLoading(getActivity());
                 ProductDTOService.getInstance()
                         .getJSONApi()
                         .createProduct(new ProductCreateDTO(title, price, chooseImageBase64))
                         .enqueue(new Callback<ProductCreateResultDTO>() {
                             @Override
                             public void onResponse(Call<ProductCreateResultDTO> call, Response<ProductCreateResultDTO> response) {
-                            if(response.isSuccessful()){
-                                ProductCreateResultDTO resultDTO = response.body();
-                                ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), true);
-                            }
-                            else{
-                                Log.e("error create", "----------Error----------");
-                            }
+                                CommonUtils.hideLoading();
+                                if (response.isSuccessful()) {
+                                    ProductCreateResultDTO resultDTO = response.body();
+                                    ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), true);
+                                } else {
+
+                                    try {
+                                        String json = response.errorBody().string();
+                                        Gson gson = new Gson();
+                                        LoginDTOBadRequest resultBad = gson.fromJson(json, LoginDTOBadRequest.class);
+                                        //Log.d(TAG,"++++++++++++++++++++++++++++++++"+response.errorBody().string());
+                                        errorMessage.setText(resultBad.getInvalid());
+                                    } catch (Exception e) {
+                                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
                             }
 
                             @Override
                             public void onFailure(Call<ProductCreateResultDTO> call, Throwable t) {
-
+                                CommonUtils.hideLoading();
+                                Log.e("ERROR","*************ERORR request***********");
                             }
                         });
 
@@ -104,6 +122,7 @@ public class ProductCreateFragment extends Fragment {
         });
         return view;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -111,16 +130,14 @@ public class ProductCreateFragment extends Fragment {
                 if (resultCode == -1) {
                     Uri fileUri = data.getData();
                     try {
-                        File imgFile= FileUtil.from(this.getActivity(),fileUri);
+                        File imgFile = FileUtil.from(this.getActivity(), fileUri);
 
                         byte[] buffer = new byte[(int) imgFile.length() + 100];
                         int length = new FileInputStream(imgFile).read(buffer);
                         chooseImageBase64 = Base64.encodeToString(buffer, 0, length, Base64.NO_WRAP);
                         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                         chooseImage.setImageBitmap(myBitmap);
-                    }
-                    catch(IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
