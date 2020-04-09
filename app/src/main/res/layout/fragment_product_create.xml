@@ -63,30 +63,30 @@ tools:context=".productview.ProductCreateFragment">
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
-        <ImageView
-            android:id="@+id/chooseImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_toStartOf="@id/btnSelectImage"
-            android:layout_toLeftOf="@id/btnSelectImage"
-            android:src="@drawable/upload" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+    <ImageView
+        android:id="@+id/chooseImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toStartOf="@id/btnSelectImage"
+        android:layout_toLeftOf="@id/btnSelectImage"
+        android:src="@drawable/upload" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSelectImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="45dp"
-            android:text="Обрати фото" />
-    </RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="45dp"
+        android:text="Обрати фото" />
+</RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
