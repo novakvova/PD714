@@ -11,13 +11,21 @@ import com.example.begin.R;
 
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
+    private View view;
     public NetworkImageView productImage;
     public TextView productTitle;
     public TextView productPrice;
+
     public ProductCardViewHolder(@NonNull View itemView) {
         super(itemView);
         productImage = itemView.findViewById(R.id.product_image);
         productTitle = itemView.findViewById(R.id.product_title);
         productPrice = itemView.findViewById(R.id.product_price);
+        this.view = itemView;
     }
+
+    public View getView(){
+        return  view;
+    }
+
 }

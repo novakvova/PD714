@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.begin.R;
 import com.example.begin.network.ImageRequester;
 import com.example.begin.network.ProductEntry;
+import com.example.begin.productview.click_listeners.OnDeleteListener;
+import com.example.begin.productview.click_listeners.OnEditListener;
 
 import java.util.List;
 
@@ -21,8 +23,14 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private List<ProductEntry> productList;
     private ImageRequester imageRequester;
 
-    ProductCardRecyclerViewAdapter(List<ProductEntry> productList) {
+    private OnDeleteListener deleteListener;
+    private OnEditListener editListener;
+
+
+    ProductCardRecyclerViewAdapter(List<ProductEntry> productList, OnDeleteListener deleteListener, OnEditListener editListener) {
         this.productList = productList;
+        this.editListener = editListener;
+        this.deleteListener = deleteListener;
         imageRequester = ImageRequester.getInstance();
     }
 
@@ -34,12 +42,28 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductCardViewHolder holder, final int position) {
         if (productList != null && position < productList.size()) {
             ProductEntry product = productList.get(position);
             holder.productTitle.setText(product.title);
             holder.productPrice.setText(product.price);
             imageRequester.setImageFromUrl(holder.productImage, product.url);
+
+
+            holder.getView().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    deleteListener.deleteItem(productList.get(position));
+                    return true;
+                }
+            });
+
+            holder.getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editListener.editItem(productList.get(position),position);
+                }
+            });
         }
     }
 
