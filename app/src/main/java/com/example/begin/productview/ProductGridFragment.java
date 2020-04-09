@@ -28,12 +28,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductGridFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProductGridFragment extends Fragment {
 
     private static final String TAG = ProductGridFragment.class.getSimpleName();
@@ -50,10 +44,10 @@ public class ProductGridFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
-        Button gridBtn = view.findViewById(R.id.add_button);
+        Button btnCreateNew = view.findViewById(R.id.add_button);
 
         // Set an error if the password is less than 8 characters.
-        gridBtn.setOnClickListener(new View.OnClickListener() {
+        btnCreateNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((NavigationHost) getActivity()).navigateTo(new ProductCreateFragment(), false);
@@ -90,6 +84,7 @@ public class ProductGridFragment extends Fragment {
 
                             List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
                             for (ProductDTO item : list) {
+                                Log.d("Show", item.toString());
                                 ProductEntry pe = new ProductEntry(item.getTitle(), item.getUrl(), item.getUrl(), item.getPrice(), "sdfasd");
                                 newlist.add(pe);
                             }
