@@ -60,6 +60,7 @@ public class ProductCreateFragment extends Fragment {
 
         Button btnAddProduct = view.findViewById(R.id.add_button);
         Button btnSelectImage = view.findViewById(R.id.btnSelectImage);
+        Button btnCancel = view.findViewById(R.id.cancel_button);
 
         chooseImage = (ImageView) view.findViewById(R.id.chooseImage);
 
@@ -79,6 +80,14 @@ public class ProductCreateFragment extends Fragment {
         final TextView errorMessage = view.findViewById(R.id.error_message);
 
         // Set an error if the password is less than 8 characters.
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // Toast.makeText(getActivity(),"Successful", Toast.LENGTH_LONG).show();
+                ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), true);
+            }
+        });
+
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
