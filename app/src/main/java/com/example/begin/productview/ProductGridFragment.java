@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.begin.NavigationHost;
 import com.example.begin.R;
 import com.example.begin.network.ProductEntry;
+import com.example.begin.productview.click_listeners.OnDeleteListener;
+import com.example.begin.productview.click_listeners.OnEditListener;
 import com.example.begin.productview.netwok.ProductDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
@@ -28,11 +31,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductGridFragment extends Fragment {
+public class ProductGridFragment extends Fragment implements OnEditListener, OnDeleteListener {
 
     private static final String TAG = ProductGridFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
+
+    private ProductCardRecyclerViewAdapter productEntryAdapter;
+    private List<ProductEntry> listProductEntry;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +66,13 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
+        listProductEntry = new ArrayList<ProductEntry>();
+        productEntryAdapter = new ProductCardRecyclerViewAdapter(listProductEntry, this, this);
+
 //        List<ProductEntry> list = ProductEntry.initProductEntryList(getResources());
 //        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(list);
 //
-//        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(productEntryAdapter);
 
         int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
@@ -82,14 +92,15 @@ public class ProductGridFragment extends Fragment {
                             // String res= list.get(0).toString();
                             //Log.d(TAG, "--------result server-------"+res);
 
-                            List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
+                            //List<ProductEntry> newlist = new ArrayList<ProductEntry>();//ProductEntry.initProductEntryList(getResources());
                             for (ProductDTO item : list) {
                                 Log.d("Show", item.toString());
-                                ProductEntry pe = new ProductEntry(item.getTitle(), item.getUrl(), item.getUrl(), item.getPrice(), "sdfasd");
-                                newlist.add(pe);
+                                ProductEntry pe = new ProductEntry(item.getId(), item.getTitle(), item.getUrl(), item.getUrl(), item.getPrice(), "sdfasd");
+                                listProductEntry.add(pe);
                             }
-                            ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
-                            recyclerView.swapAdapter(newAdapter, false);
+                            //ProductCardRecyclerViewAdapter newAdapter = new ProductCardRecyclerViewAdapter(newlist);
+                            //recyclerView.swapAdapter(newAdapter, false);
+                            productEntryAdapter.notifyDataSetChanged();
                         }
 
                     }
@@ -110,5 +121,15 @@ public class ProductGridFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void deleteItem(ProductEntry productEntry) {
+        Toast.makeText(getActivity(), "Delete Item", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void editItem(ProductEntry productEntry, int index) {
+        Toast.makeText(getActivity(), "Edit Item", Toast.LENGTH_LONG).show();
     }
 }
