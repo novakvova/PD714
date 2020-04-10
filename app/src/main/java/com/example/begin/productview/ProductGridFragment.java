@@ -29,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -119,11 +120,47 @@ public class ProductGridFragment extends Fragment implements OnEditListener, OnD
                     }
                 });
 
-
-
-
         return view;
     }
+
+
+    private void deleteConfirm(final ProductEntry productEntry) {
+        CommonUtils.showLoading(getContext());
+        ProductDTOService.getInstance()
+                .getJSONApi()
+                .DeleteRequest(productEntry.id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        CommonUtils.hideLoading();
+                        if (response.isSuccessful()) {
+                            listProductEntry.remove(productEntry);
+                            productEntryAdapter.notifyDataSetChanged();
+                        } else {
+                            //  Log.e(TAG, "_______________________" + response.errorBody().charStream());
+
+                            try {
+//                                                String json = response.errorBody().string();
+//                                                Gson gson  = new Gson();
+//                                                ProductCreateInvalidDTO resultBad = gson.fromJson(json, ProductCreateInvalidDTO.class);
+                                //Log.d(TAG,"++++++++++++++++++++++++++++++++"+response.errorBody().string());
+                                //errormessage.setText(resultBad.getInvalid());
+                            } catch (Exception e) {
+                                //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                        CommonUtils.hideLoading();
+                        Log.e("ERROR", "*************ERORR request***********");
+                        t.printStackTrace();
+
+                    }
+                });
+    }
+
 
     @Override
     public void deleteItem(final ProductEntry productEntry) {
@@ -134,9 +171,7 @@ public class ProductGridFragment extends Fragment implements OnEditListener, OnD
                 .setPositiveButton("Видалити", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listProductEntry.remove(productEntry);
-                        productEntryAdapter.notifyDataSetChanged();
-                        //deleteConfirm(productEntry);
+                        deleteConfirm(productEntry);
                     }
                 })
                 .show();
