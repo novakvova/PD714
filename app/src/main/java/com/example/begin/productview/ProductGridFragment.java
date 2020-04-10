@@ -1,6 +1,7 @@
 package com.example.begin.productview;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.example.begin.productview.click_listeners.OnEditListener;
 import com.example.begin.productview.netwok.ProductDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,8 +126,22 @@ public class ProductGridFragment extends Fragment implements OnEditListener, OnD
     }
 
     @Override
-    public void deleteItem(ProductEntry productEntry) {
-        Toast.makeText(getActivity(), "Delete Item", Toast.LENGTH_SHORT).show();
+    public void deleteItem(final ProductEntry productEntry) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Видалення")
+                .setMessage("Ви дійсно бажаєте видалити \"" + productEntry.title + "\"?")
+                .setNegativeButton("Скасувати", null)
+                .setPositiveButton("Видалити", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listProductEntry.remove(productEntry);
+                        productEntryAdapter.notifyDataSetChanged();
+                        //deleteConfirm(productEntry);
+                    }
+                })
+                .show();
+
+        //Toast.makeText(getActivity(), "Delete Item", Toast.LENGTH_SHORT).show();
     }
 
     @Override
