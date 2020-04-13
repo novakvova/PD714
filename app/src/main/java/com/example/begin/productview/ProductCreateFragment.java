@@ -22,12 +22,14 @@ import android.widget.Toast;
 import com.example.begin.R;
 import com.example.begin.account.LoginDTOBadRequest;
 import com.example.begin.productview.netwok.ProductCreateDTO;
+import com.example.begin.productview.netwok.ProductCreateErrorDTO;
 import com.example.begin.productview.netwok.ProductCreateResultDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
 import com.example.begin.utils.FileUtil;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.begin.NavigationHost;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -44,12 +46,12 @@ public class ProductCreateFragment extends Fragment {
     public static final int PICKFILE_RESULT_CODE = 1;
     ImageView chooseImage;
     String chooseImageBase64;
-
-
+    TextInputLayout title_text_input;
+    TextInputLayout price_text_input;
+    TextView error_img;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -78,6 +80,9 @@ public class ProductCreateFragment extends Fragment {
         final TextInputEditText titleEditText = view.findViewById(R.id.title_edit_text);
         final TextInputEditText priceEditText = view.findViewById(R.id.price_edit_text);
         final TextView errorMessage = view.findViewById(R.id.error_message);
+        title_text_input = view.findViewById(R.id.title_text_input);
+        price_text_input = view.findViewById(R.id.price_text_input);
+        error_img = view.findViewById(R.id.error_img);
 
         // Set an error if the password is less than 8 characters.
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -111,9 +116,13 @@ public class ProductCreateFragment extends Fragment {
                                     try {
                                         String json = response.errorBody().string();
                                         Gson gson = new Gson();
-                                        LoginDTOBadRequest resultBad = gson.fromJson(json, LoginDTOBadRequest.class);
+                                        ProductCreateErrorDTO resultBad = gson.fromJson(json, ProductCreateErrorDTO.class);
+                                        title_text_input.setError(resultBad.getTitle());
+                                        price_text_input.setError(resultBad.getPrice());
                                         //Log.d(TAG,"++++++++++++++++++++++++++++++++"+response.errorBody().string());
                                         errorMessage.setText(resultBad.getInvalid());
+
+                                        error_img.setText(resultBad.getImageBase64());
                                     } catch (Exception e) {
                                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
