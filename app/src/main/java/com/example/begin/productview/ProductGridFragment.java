@@ -2,6 +2,7 @@ package com.example.begin.productview;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ import retrofit2.Response;
 
 public class ProductGridFragment extends Fragment implements OnEditListener, OnDeleteListener {
 
+    private final int REQUEST_CODE_EDIT = 101;
     private static final String TAG = ProductGridFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -181,6 +183,8 @@ public class ProductGridFragment extends Fragment implements OnEditListener, OnD
 
     @Override
     public void editItem(ProductEntry productEntry, int index) {
-        Toast.makeText(getActivity(), "Edit Item", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), ProductEditActivity.class);
+        intent.putExtra(Constants.PRODUCT_INTENT_ID, productEntry.id);
+        startActivityForResult(intent, REQUEST_CODE_EDIT);
     }
 }

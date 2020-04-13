@@ -20,4 +20,10 @@ public interface ProductDTOHolderApi {
 
     @DELETE("products/delete/{id}")
     public Call<ResponseBody> DeleteRequest(@Path("id") int id);
+
+    @GET("products/edit/{id}")
+    public Call<ProductDTO> getEditProduct(@Path("id") int id);
+
+    @POST("products/edit")
+    public Call<Void> editProduct(@Body ProductDTO productDTO);
 }
