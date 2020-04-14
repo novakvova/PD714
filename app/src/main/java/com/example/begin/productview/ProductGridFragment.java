@@ -187,4 +187,15 @@ public class ProductGridFragment extends Fragment implements OnEditListener, OnD
         intent.putExtra(Constants.PRODUCT_INTENT_ID, productEntry.id);
         startActivityForResult(intent, REQUEST_CODE_EDIT);
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_EDIT) {
+            if (resultCode == -1) {
+                //loadProductEntryList();
+            }
+        }
+    }
+
 }

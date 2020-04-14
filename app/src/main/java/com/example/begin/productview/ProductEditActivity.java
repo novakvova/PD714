@@ -4,7 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +22,11 @@ import com.example.begin.network.ImageRequester;
 import com.example.begin.productview.netwok.ProductDTO;
 import com.example.begin.productview.netwok.ProductDTOService;
 import com.example.begin.utils.CommonUtils;
+import com.example.begin.utils.FileUtil;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -155,4 +165,30 @@ public class ProductEditActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case PICKFILE_RESULT_CODE:
+                if (resultCode == -1) {
+                    Uri fileUri = data.getData();
+                    try {
+                        File imgFile = FileUtil.from(getApplicationContext(), fileUri);
+                        byte[] buffer = new byte[(int) imgFile.length() + 100];
+                        int length = new FileInputStream(imgFile).read(buffer);
+                        chooseImageBase64 = Base64.encodeToString(buffer, 0, length, Base64.NO_WRAP);
+                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        editImage.setImageBitmap(myBitmap);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                break;
+        }
+    }
+
+
 }

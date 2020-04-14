@@ -13,6 +13,7 @@ import com.example.begin.network.ProductEntry;
 import com.example.begin.productview.click_listeners.OnDeleteListener;
 import com.example.begin.productview.click_listeners.OnEditListener;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +48,10 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             ProductEntry product = productList.get(position);
             holder.productTitle.setText(product.title);
             holder.productPrice.setText(product.price);
-            imageRequester.setImageFromUrl(holder.productImage, product.url);
+
+            int i = (int) (new Date().getTime()/1000);
+
+            imageRequester.setImageFromUrl(holder.productImage, product.url+"?data="+i);
 
 
             holder.getView().setOnLongClickListener(new View.OnLongClickListener() {
