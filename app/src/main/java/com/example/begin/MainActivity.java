@@ -52,6 +52,10 @@ public class MainActivity extends BaseActivity {
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.profile:
+                intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.register:
                 //intent = new Intent(this, RegisterActivity.class);
                 //startActivity(intent);
